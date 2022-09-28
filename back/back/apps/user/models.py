@@ -1,32 +1,195 @@
-from django.core import validators
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
+from phonenumber_field.modelfields import PhoneNumberField
 
 from django_otp.plugins.otp_email.models import EmailDevice as BaseEmailDevice
 
 from back.apps.user.mails import SendOTPMail
 
 
+class UserSocial(models.Model):
+    value = models.CharField(
+        _("value"),
+        max_length=255,
+    )
+
+    social = models.ForeignKey(
+        "social.Social",
+        on_delete=models.CASCADE,
+        verbose_name=_("social"),
+        related_name="user_socials",
+    )
+
+    notification_method = models.ForeignKey(
+        "user.NotificationMethod",
+        on_delete=models.CASCADE,
+        verbose_name=_("notification method"),
+        related_name="socials",
+    )
+
+    class Meta:
+        app_label = "user"
+        db_table = "user_socials"
+        verbose_name = _("user social")
+        verbose_name_plural = _("user socials")
+
+    def __str__(self):
+        return f"{self.social} : {self.value}"
+
+
+class NotificationMethod(models.Model):
+    email = models.EmailField(
+        _("send notification"),
+    )
+
+    sms = PhoneNumberField(
+        _("text message"),
+    )
+
+    other = models.TextField(
+        _("other method"),
+    )
+
+    facebook = models.EmailField(
+        _("facebook mail"),
+    )
+
+    class Meta:
+        app_label = "user"
+        db_table = "notification_methods"
+        verbose_name = _("notification method")
+        verbose_name_plural = _("notification methods")
+
+    def __str__(self):
+        return f"{self.id}"
+
+
+class NotificationSetting(models.Model):
+    active = models.BooleanField(
+        _("send notification"),
+    )
+
+    frecuency = models.CharField(
+        _("frecuency"),
+        max_length=255,
+    )
+
+    notification_method = models.OneToOneField(
+        "user.NotificationMethod",
+        on_delete=models.CASCADE,
+        verbose_name=_("notification methods"),
+        related_name="notification_setting",
+    )
+
+    user = models.OneToOneField(
+        "user.User",
+        on_delete=models.CASCADE,
+        verbose_name=_("user"),
+        related_name="notification_setting",
+    )
+
+    class Meta:
+        app_label = "user"
+        db_table = "notification_settings"
+        verbose_name = _("notification setting")
+        verbose_name_plural = _("notification settings")
+
+    def __str__(self):
+        return f"{self.id}"
+
+
+class PaymentInfo(models.Model):
+
+    source_bank = models.CharField(
+        _("source bank"),
+        max_length=512,
+    )
+
+    target_bank = models.CharField(
+        _("target bank"),
+        max_length=512,
+    )
+
+    country = models.ForeignKey(
+        "address.Country",
+        on_delete=models.CASCADE,
+        verbose_name=_("Country"),
+        related_name="bank",
+    )
+
+    user = models.OneToOneField(
+        "user.User",
+        on_delete=models.CASCADE,
+        verbose_name=_("user"),
+        related_name="payment_info",
+    )
+
+    class Meta:
+        app_label = "user"
+        db_table = "payment_info"
+        verbose_name = _("payment info")
+        verbose_name_plural = _("payment infos")
+
+    def __str__(self):
+        return f"{self.id}"
+
+
+class AboutWebSite(models.Model):
+
+    web = models.BooleanField(
+        _("web"),
+    )
+
+    socials = models.ManyToManyField(
+        "social.Social",
+        verbose_name=_("social"),
+        related_name="+",
+    )
+
+    friends = models.BooleanField(
+        _("friends"),
+    )
+
+    other = models.TextField(
+        _("other method"),
+    )
+
+    user = models.OneToOneField(
+        "user.User",
+        on_delete=models.CASCADE,
+        verbose_name=_("user"),
+        related_name="about_website",
+    )
+
+    class Meta:
+        app_label = "user"
+        db_table = "about_website"
+        verbose_name = _("about website")
+        verbose_name_plural = _("abouts website")
+
+    def __str__(self):
+        return f"{self.id}"
+
+
 class User(AbstractUser):
     email = models.EmailField(
         _("email address"),
-        unique=True,
         error_messages={
-            "unique": _("A user with that username already exists."),
+            "unique": _("A user with that email already exists."),
         },
     )
 
-    document_id = models.CharField(
-        _("document id (cedula/rif)"),
-        max_length=15,
-        validators=[
-            validators.RegexValidator(
-                regex=r"^[eEvVjJ]\d+$",
-                message=_("your document id is not well formatted"),
-            ),
-        ],
+    class Languages(models.TextChoices):
+        ES = "ES", _("Español")
+        EN = "EN", _("English")
+
+    language = models.CharField(
+        verbose_name=_("language"),
+        default=Languages.ES,
+        max_length=4,
+        choices=Languages.choices,
     )
 
     def get_full_name(self):
@@ -40,17 +203,6 @@ class User(AbstractUser):
     def get_short_name(self):
         # Returns the short name for the user.
         return self.first_name
-
-    def get_pretty_document(self):
-        # Returns document_id prettier
-        document_id = str(self.document_id)
-        letter = document_id[:1].upper()
-        number = document_id[1:]
-        return f"{letter}-{number}"
-
-    @property
-    def document(self):
-        return self.get_pretty_document()
 
 
 class EmailDevice(BaseEmailDevice):
@@ -81,7 +233,7 @@ class EmailDevice(BaseEmailDevice):
         """
         self.generate_token(valid_secs=settings.OTP_EMAIL_TOKEN_VALIDITY)
 
-        context = {'token': self.token, **(extra_context or {})}
+        context = {"token": self.token, **(extra_context or {})}
 
         mail = SendOTPMail()
         mail.set_context(**context)

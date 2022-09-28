@@ -20,14 +20,30 @@ class UserSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class UserEmployeeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = [
+            "charge",
+            "first_name",
+            "last_name",
+            "email",
+        ]
+
+    def create(self, validated_data):
+        username = validated_data["email"].split("@")[0]
+        count = User.objects.filter(username__startswith=username).count()
+        validated_data["username"] = f"{username}{count}" if count else username
+        validated_data["password"] = "super random password"
+        return super().create(validated_data)
+
+
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = [
             "email",
             "username",
-            "document_id",
-            "type",
             "first_name",
             "last_name",
         ]
@@ -85,7 +101,7 @@ class PasswordResetSerializer(serializers.Serializer):
         }
         mail = mails.ResetPasswordMail()
         mail.set_context(**extra_context)
-        mail.send([user.email]) 
+        mail.send([user.email])
 
 
 class PasswordSerializer(serializers.Serializer):
@@ -232,8 +248,6 @@ class RegisterUserSerializer(UserProfileSerializer):
             "username": data["username"],
             "password": data["password1"],
             "email": data["email"],
-            "document_id": data["document_id"],
-            "type": data["type"],
             "first_name": data["first_name"],
             "last_name": data["last_name"],
         }
@@ -244,5 +258,4 @@ class RegisterUserSerializer(UserProfileSerializer):
         fields = UserProfileSerializer.Meta.fields + [
             "password1",
             "password2",
-            "account_type",
         ]

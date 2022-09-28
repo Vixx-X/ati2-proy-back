@@ -64,12 +64,26 @@ urlpatterns = (
     [
         # admin
         path("admin/", admin.site.urls),
-        # user
+        # apps
+        path(
+            "",
+            include(("back.apps.user.urls", "back.apps.user"), namespace="user"),
+        ),
         path(
             "",
             include(
-                ("back.apps.user.urls", "back.apps.user"), namespace="user"
+                ("back.apps.address.urls", "back.apps.address"), namespace="address"
             ),
+        ),
+        path(
+            "",
+            include(
+                ("back.apps.vehicle.urls", "back.apps.vehicle"), namespace="vehicle"
+            ),
+        ),
+        path(
+            "",
+            include(("back.apps.social.urls", "back.apps.social"), namespace="social"),
         ),
         # docs
         path("docs/", include(docs_urls)),
