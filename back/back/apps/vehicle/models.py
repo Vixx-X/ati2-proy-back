@@ -3,6 +3,8 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from back.apps.post.models import Post
+
 
 def current_year() -> int:
     """Get the current year"""
@@ -81,3 +83,69 @@ class Vehicle(models.Model):
             self.year,
         ]
         return " ".join([f"{o}" for o in out if o])
+
+
+class VehiclePost(Post):
+
+    currency = models.CharField(
+        _("currency"),
+        max_length=12,
+        default="USD",
+    )
+
+    sale_price = models.DecimalField(
+        _("price"),
+        decimal_places=2,
+        max_digits=12,
+        blank=True,
+        null=True,
+    )
+
+    rental_price = models.DecimalField(
+        _("rental price"),
+        decimal_places=2,
+        max_digits=12,
+        blank=True,
+        null=True,
+    )
+
+    class SaleType(models.TextChoices):
+        RENTAL = "RENT", _("Rental")
+        SALE = "SALE", _("Sale")
+        BOTH = "BOTH", _("Rental and sale")
+
+    sale_type = models.CharField(
+        _("sale type"),
+        max_length=4,
+        choices=SaleType.choices,
+    )
+
+    vehicle = models.ForeignKey(
+        "vehicle.Vehicle",
+        on_delete=models.CASCADE,
+        related_name="posts",
+        verbose_name=_("vehicle"),
+    )
+
+    accesories = models.TextField(
+        verbose_name=_("accesories"),
+    )
+
+    services = models.TextField(
+        verbose_name=_("services"),
+    )
+
+    class VehicleStateType(models.TextChoices):
+        NEW = "NEW", _("new")
+        USED = "USED", _("used")
+
+    vehicle_state = models.CharField(
+        _("vehicle state"),
+        max_length=4,
+        choices=VehicleStateType.choices,
+    )
+
+    class Meta:
+        db_table = "vehicle_posts"
+        verbose_name = _("Vehicle post")
+        verbose_name_plural = _("Vehicle posts")

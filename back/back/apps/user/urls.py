@@ -1,5 +1,4 @@
 from django.urls.conf import path, include
-from rest_framework import routers
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -7,23 +6,7 @@ from rest_framework_simplejwt.views import (
 )
 from . import views
 
-router = routers.DefaultRouter()
-router.register(
-    r"users",
-    views.UserViewSet,
-)
-
 user_urls = [
-    path(
-        "register/",
-        views.RegistrationView.as_view(),
-        name="register",
-    ),
-    path(
-        "profile/",
-        views.ProfileView.as_view(),
-        name="profile",
-    ),
     path(
         "password-reset/",
         views.PasswordResetView.as_view(),
@@ -77,9 +60,5 @@ urlpatterns = [
     path(
         "token/",
         include(auth_urls),
-    ),
-    path(
-        "",
-        include(router.urls),
     ),
 ]

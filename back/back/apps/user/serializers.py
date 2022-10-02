@@ -10,43 +10,88 @@ from django.contrib.auth.forms import _unicode_ci_compare
 from django.contrib.sites.shortcuts import get_current_site
 from django_otp import verify_token
 from back.apps.user import mails
+from back.apps.social.models import Social
 
-from .models import User
+from . import models
+
+User = models.User
+
+
+class UserSocialSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.UserSocial
+        exclude = ["notification_method"]
+
+
+class NotificationMethodSerializer(serializers.ModelSerializer):
+    socials = UserSocialSerializer(many=True)
+
+    class Meta:
+        model = models.NotificationMethod
+        fields = "__all__"
+
+    def create(self, validated_data):
+        socials = validated_data.pop("socials")
+        obj = models.NotificationMethod.objects.create(**validated_data)
+        for social in socials:
+            social["notification_method"] = obj
+            UserSocialSerializer().create(validated_data=social)
+        return obj
+
+
+class NotificationSettingSerializer(serializers.ModelSerializer):
+    notification_method = NotificationMethodSerializer()
+
+    class Meta:
+        model = models.NotificationSetting
+        exclude = ["user"]
+
+    def create(self, validated_data):
+        notification_method = validated_data.pop("notification_method")
+        obj = models.NotificationSetting.objects.create(**validated_data)
+        notification_method["notification_setting"] = obj
+        NotificationMethodSerializer().create(validated_data=notification_method)
+        return obj
+
+
+class PaymentInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.PaymentInfo
+        exclude = ["user"]
+
+
+class AboutWebSiteSerializer(serializers.ModelSerializer):
+    socials = serializers.PrimaryKeyRelatedField(
+        many=True,
+        queryset=Social.objects.all(),
+    )
+
+    class Meta:
+        model = models.AboutWebSite
+        exclude = ["user"]
 
 
 class UserSerializer(serializers.ModelSerializer):
+    notification_setting = NotificationSettingSerializer()
+    payment_info = PaymentInfoSerializer()
+    about_website = AboutWebSiteSerializer()
+
     class Meta:
         model = User
         fields = "__all__"
 
-
-class UserEmployeeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = [
-            "charge",
-            "first_name",
-            "last_name",
-            "email",
-        ]
-
     def create(self, validated_data):
-        username = validated_data["email"].split("@")[0]
-        count = User.objects.filter(username__startswith=username).count()
-        validated_data["username"] = f"{username}{count}" if count else username
-        validated_data["password"] = "super random password"
-        return super().create(validated_data)
-
-
-class UserProfileSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = [
-            "email",
-            "username",
-            "first_name",
-            "last_name",
-        ]
+        notification_setting = validated_data.pop("notification_setting")
+        payment_info = validated_data.pop("validated_data")
+        about_website = validated_data.pop("about_website")
+        obj = models.User.objects.create(**validated_data, is_active=True)
+        notification_setting["user"] = obj
+        payment_info["user"] = obj
+        about_website["user"] = obj
+        NotificationSettingSerializer().create(notification_setting)
+        PaymentInfoSerializer().create(payment_info)
+        AboutWebSiteSerializer().create(about_website)
+        return obj
 
 
 def get_password_reset_url(user, token_generator=default_token_generator):
@@ -223,9 +268,7 @@ class ChangeEmailSerializer(OTPChallengeSerializer):
         return self.user
 
 
-class RegisterUserSerializer(UserProfileSerializer):
-    first_name = serializers.CharField(required=True)
-    last_name = serializers.CharField(required=True)
+class UserRegisterSerializer(UserSerializer):
     password1 = serializers.CharField(
         required=True,
         style={"input_type": "password"},
@@ -242,20 +285,19 @@ class RegisterUserSerializer(UserProfileSerializer):
         password_validation.validate_password(attrs["password1"])
         return attrs
 
-    def save(self):
-        data = self.validated_data
-        user_data = {
-            "username": data["username"],
-            "password": data["password1"],
-            "email": data["email"],
-            "first_name": data["first_name"],
-            "last_name": data["last_name"],
-        }
-        user = User.objects.create_user(**user_data)
-        return user
+    def create(self, validated_data):
+        validated_data["password"] = validated_data.pop("password1")
+        validated_data.pop("password2")
+        return super().create(validated_data)
 
-    class Meta(UserProfileSerializer.Meta):
-        fields = UserProfileSerializer.Meta.fields + [
+    class Meta(UserSerializer.Meta):
+        fields = [
+            "username",
+            "email",
             "password1",
             "password2",
+            "language",
+            "about_website",
+            "payment_info",
+            "notification_setting",
         ]

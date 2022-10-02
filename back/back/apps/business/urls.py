@@ -8,16 +8,13 @@ router.register(
     r"businesses",
     views.BusinessViewSet,
 )
-router.register(
-    r"employee",
-    views.EmployeeViewSet,
-)
-router.register(
-    r"provider",
-    views.ProviderViewSet,
-)
 
 urlpatterns = [
+    path(
+        "businesses/register/",
+        views.BusinessRegistrationView.as_view(),
+        name="business-register",
+    ),
     path(
         "",
         include(router.urls),

@@ -1,9 +1,11 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, generics
+from rest_framework.permissions import AllowAny
 
-from back.apps.business.filters import BusinessFilter, EmployeeFilter, ProviderFilter
+from back.apps.user.permissions import IsOwnerOrReadOnly
+from back.apps.user.views import RegistrationMixin
 
-from .serializers import BusinessSerializer, EmployeeSerializer, ProviderSerializer
-from .models import Business, Employee, Provider
+from .serializers import BusinessSerializer, BussinessRegisterSerializer
+from .models import Business
 
 
 class BusinessViewSet(viewsets.ModelViewSet):
@@ -11,26 +13,12 @@ class BusinessViewSet(viewsets.ModelViewSet):
     Entrypoint for businesses
     """
 
+    permission_classes = (IsOwnerOrReadOnly,)
     queryset = Business.objects.all()
     serializer_class = BusinessSerializer
-    filterset_class = BusinessFilter
 
 
-class EmployeeViewSet(viewsets.ModelViewSet):
-    """
-    Entrypoint for employee
-    """
-
-    queryset = Employee.objects.all()
-    serializer_class = EmployeeSerializer
-    filterset_class = EmployeeFilter
-
-
-class ProviderViewSet(viewsets.ModelViewSet):
-    """
-    Entrypoint for provider
-    """
-
-    queryset = Provider.objects.all()
-    serializer_class = ProviderSerializer
-    filterset_class = ProviderFilter
+class BusinessRegistrationView(generics.CreateAPIView, RegistrationMixin):
+    register_serializer_class = BussinessRegisterSerializer
+    serializer_class = BusinessSerializer
+    permission_classes = (AllowAny,)

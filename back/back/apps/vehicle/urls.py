@@ -1,4 +1,5 @@
 from django.urls.conf import path, include
+from rest_framework import routers
 from . import views
 
 vehicle_urls = [
@@ -20,8 +21,8 @@ vehicle_urls = [
     path(
         "",
         views.VehicleListView.as_view(),
-        name="vehicle-list"
-    )
+        name="vehicle-list",
+    ),
 ]
 
 urlpatterns = [

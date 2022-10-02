@@ -1,26 +1,16 @@
 from rest_framework import serializers
 from django.utils.translation import gettext_lazy as _
 
-from .models import Vehicle
+from .models import ContactSeller, DayOption
 
 
-class BrandSerializer(serializers.ModelSerializer):
+class ContactSellerSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Vehicle
-        fields = ["brand"]
-
-class ModelSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Vehicle
-        fields = ["model"]
-
-class YearSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Vehicle
-        fields = ["year"]
-
-class VehicleSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Vehicle
+        model = ContactSeller
         fields = "__all__"
 
+
+class DayOptionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DayOption
+        fields = ["option"]

@@ -1,8 +1,8 @@
 from datetime import timedelta
 
-from rest_framework import generics, serializers, viewsets, status
+from rest_framework import generics, serializers, status
 from rest_framework.response import Response
-from rest_framework.permissions import IsAdminUser, IsAuthenticated
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer
 
 from django.conf import settings
@@ -11,46 +11,21 @@ from django.core.exceptions import ValidationError
 from django.utils.http import urlsafe_base64_decode
 from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
+from back.apps.user.signals import user_registered
 
 from drf_spectacular.utils import extend_schema, inline_serializer
 
 from django_otp import devices_for_user
 
 from .serializers import (
-    UserSerializer,
-    UserProfileSerializer,
     PasswordResetSerializer,
     PasswordSerializer,
     OTPRequestSerializer,
     ChangePasswordSerializer,
     ChangeEmailSerializer,
-    RegisterUserSerializer,
 )
 
 from .models import User
-
-
-class UserViewSet(viewsets.ModelViewSet):
-    """
-    Entrypoint for users
-    """
-
-    permission_classes = (IsAdminUser,)
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-
-
-class ProfileView(generics.RetrieveAPIView):
-    """
-    Get data for current user
-    """
-
-    renderer_classes = [JSONRenderer, BrowsableAPIRenderer]
-    serializer_class = UserProfileSerializer
-    permission_classes = (IsAuthenticated,)
-
-    def get_object(self):
-        return self.request.user
 
 
 class PasswordResetView(generics.GenericAPIView):
@@ -206,30 +181,26 @@ class ChangeEmailView(generics.GenericAPIView):
         return Response({"message": _("Your email have been successfully changed.")})
 
 
-class RegistrationView(generics.GenericAPIView):
-    """
-    API for registering users
+class RegistrationMixin:
 
-    Will create a new user when the user with the specific email does
-    not exist (HTTP_201_CREATED).
-
-    It won't login the newly created user, You can do this with the token API.
-    """
-
-    serializer_class = RegisterUserSerializer
-
-    def send_registration_email(self, user):
-        pass
+    register_serializer_class = None
+    serializer_class = None
 
     def post(self, request, *args, **kwargs):
-        ser = self.serializer_class(data=request.data)
+        assert self.register_serializer_class != None
+        assert self.serializer_class != None
 
-        ser.is_valid(raise_exception=True)
-
-        # create the user
-        user = ser.save()
-        self.send_registration_email(user)
-        return Response(
-            {"message": _("You have successfully registered.")},
-            status=status.HTTP_201_CREATED,
+        ser = self.register_serializer_class(
+            data=request.data, context={"request": request}
         )
+        if ser.is_valid(raise_exception=True):
+            obj, user = ser.save()
+
+            user_registered.send(sender=self, request=request, user=user)
+
+            # TODO: send entity email
+            return Response(
+                self.serializer_class(instance=obj).data,
+                status=status.HTTP_201_CREATED,
+            )
+        return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)

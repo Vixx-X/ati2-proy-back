@@ -5,19 +5,16 @@ from . import views
 
 router = routers.DefaultRouter()
 router.register(
-    r"clients",
-    views.ClientViewSet,
-)
-router.register(
-    r"particular-clients",
-    views.ParticularClientViewSet,
-)
-router.register(
-    r"countries",
-    views.CountryViewSet,
+    r"natural-persons",
+    views.NaturalPersonViewSet,
 )
 
 urlpatterns = [
+    path(
+        "natural-persons/register/",
+        views.NaturalPersonRegistrationView.as_view(),
+        name="natural-person-register",
+    ),
     path(
         "",
         include(router.urls),

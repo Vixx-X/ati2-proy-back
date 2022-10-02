@@ -192,17 +192,8 @@ class User(AbstractUser):
         choices=Languages.choices,
     )
 
-    def get_full_name(self):
-        # Returns the first_name and the last_name
-        return f"{self.first_name} {self.last_name}"
-
-    @property
-    def full_name(self):
-        return self.get_full_name()
-
-    def get_short_name(self):
-        # Returns the short name for the user.
-        return self.first_name
+    first_name = None
+    last_name = None
 
 
 class EmailDevice(BaseEmailDevice):

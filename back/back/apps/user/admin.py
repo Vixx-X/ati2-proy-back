@@ -7,8 +7,8 @@ from .models import User
 
 @admin.register(User)
 class UserAdmin(BaseUserAdmin):
-    search_fields = ("username", "first_name", "last_name", "email")
-    list_display = ("username", "email", "full_name", "date_joined")
+    search_fields = ("username", "email")
+    list_display = ("username", "email", "date_joined")
     list_filter = (
         "is_staff",
         "is_superuser",
@@ -20,7 +20,7 @@ class UserAdmin(BaseUserAdmin):
         (None, {"fields": ("username", "password")}),
         (
             _("Personal info"),
-            {"fields": ("first_name", "last_name", "email", "type")},
+            {"fields": ("email",)},
         ),
         (
             _("Permissions"),

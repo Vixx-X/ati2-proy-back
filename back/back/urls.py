@@ -85,6 +85,20 @@ urlpatterns = (
             "",
             include(("back.apps.social.urls", "back.apps.social"), namespace="social"),
         ),
+        path(
+            "",
+            include(("back.apps.client.urls", "back.apps.client"), namespace="client"),
+        ),
+        path(
+            "",
+            include(
+                ("back.apps.business.urls", "back.apps.business"), namespace="business"
+            ),
+        ),
+        path(
+            "",
+            include(("back.apps.post.urls", "back.apps.post"), namespace="post"),
+        ),
         # docs
         path("docs/", include(docs_urls)),
         # misc

@@ -1,6 +1,7 @@
 from django_filters import rest_framework as filters
 
-from .models import Vehicle
+from .models import Vehicle, VehiclePost
+
 
 class VehicleFilter(filters.FilterSet):
 
@@ -22,3 +23,24 @@ class VehicleFilter(filters.FilterSet):
     class Meta:
         model = Vehicle
         fields = []
+
+
+class VehiclePostFilter(filters.FilterSet):
+    brand = filters.CharFilter(
+        field_name="vehicle__brand",
+        lookup_expr="icontains",
+    )
+
+    model = filters.CharFilter(
+        field_name="vehicle__model",
+        lookup_expr="icontains",
+    )
+
+    year = filters.CharFilter(
+        field_name="vehicle__year",
+        lookup_expr="icontains",
+    )
+
+    class Meta:
+        model = VehiclePost
+        fields = "__all__"

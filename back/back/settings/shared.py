@@ -78,7 +78,13 @@ INSTALLED_APPS = [
     'back.apps.user.apps.UserConfig',
     'back.apps.social.apps.SocialConfig',
     'back.apps.address.apps.AddressConfig',
+    'back.apps.client.apps.ClientConfig',
+    'back.apps.business.apps.BusinessConfig',
+    'back.apps.post.apps.PostConfig',
     'back.apps.vehicle.apps.VehicleConfig',
+    'back.apps.job.apps.JobConfig',
+    'back.apps.service.apps.ServiceConfig',
+    'back.apps.media.apps.MediaConfig',
 
     ## 3rd parties ##
     'django_filters',
@@ -211,7 +217,6 @@ REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
-        "rest_framework.authentication.SessionAuthentication",
     ),
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
     "DEFAULT_FILTER_BACKENDS": [

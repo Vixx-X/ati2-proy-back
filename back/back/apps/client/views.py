@@ -1,38 +1,23 @@
-from rest_framework import viewsets
+from rest_framework import generics, viewsets
 
-from back.apps.client.filters import ParticularClientFilter
+from back.apps.user.permissions import IsOwnerOrReadOnly
+from back.apps.user.views import RegistrationMixin
 
-from .serializers import CountrySerializer, ClientSerializer, ParticularClientSerializer
+from .serializers import NaturalPersonRegisterSerializer, NaturalPersonSerializer
 
-from .models import Country, Client, ParticularClient
+from .models import NaturalPerson
 
 
-class CountryViewSet(viewsets.ModelViewSet):
+class NaturalPersonViewSet(viewsets.ModelViewSet):
     """
-    Entrypoint for countries
-    """
-
-    http_method_names = ["get", "options", "head"]
-    lookup_field = "iso_3166_1_a2"
-    queryset = Country.objects.all()
-    serializer_class = CountrySerializer
-
-
-class ParticularClientViewSet(viewsets.ModelViewSet):
-    """
-    Entrypoint for particular clients
+    Entrypoint for natural person
     """
 
-    queryset = ParticularClient.objects.all()
-    serializer_class = ParticularClientSerializer
-    filterset_class = ParticularClientFilter
+    permission_classes = (IsOwnerOrReadOnly,)
+    queryset = NaturalPerson.objects.all()
+    serializer_class = NaturalPersonSerializer
 
 
-class ClientViewSet(viewsets.ModelViewSet):
-    """
-    Entrypoint for clients
-    """
-
-    http_method_names = ["get", "options", "head"]
-    queryset = Client.objects.all()
-    serializer_class = ClientSerializer
+class NaturalPersonRegistrationView(RegistrationMixin, generics.CreateAPIView):
+    register_serializer_class = NaturalPersonRegisterSerializer
+    serializer_class = NaturalPersonSerializer

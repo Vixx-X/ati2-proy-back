@@ -43,9 +43,6 @@ function setup_venv {
 	python3 -m pip install --upgrade pip
 	echo "pip installing"
 	pip install -r requirements/prod.txt -r requirements/dev.txt
-
-	echo "collectstatic"
-	python3 ${DIR}/back/manage.py collectstatic
 }
 
 # alias for common developer commnads

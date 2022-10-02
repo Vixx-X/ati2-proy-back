@@ -3,6 +3,39 @@ from django.utils.translation import gettext_lazy as _
 from phonenumber_field.modelfields import PhoneNumberField
 
 
+class ContactSeller(models.Model):
+
+    data = models.JSONField(
+        _("json data for contact"),
+    )
+
+    class Meta:
+        app_label = "post"
+        db_table = "contact_sellers"
+        verbose_name = _("contact seller")
+        verbose_name_plural = _("contact sellers")
+
+    def __str__(self):
+        return self.data
+
+
+class DayOption(models.Model):
+    option = models.CharField(
+        _("option"),
+        max_length=128,
+        primary_key=True,
+    )
+
+    class Meta:
+        app_label = "post"
+        db_table = "day_options"
+        verbose_name = _("day option")
+        verbose_name_plural = _("day options")
+
+    def __str__(self):
+        return self.option
+
+
 class Contact(models.Model):
     first_name = models.CharField(
         _("first name"),
@@ -26,6 +59,18 @@ class Contact(models.Model):
         _("local phone"),
     )
 
+    contact_days = models.ManyToManyField(
+        "post.DayOption",
+    )
+
+    contact_hour_start = models.DateTimeField(
+        _("hour start"),
+    )
+
+    contact_hour_end = models.DateTimeField(
+        _("hour end"),
+    )
+
     class Meta:
         app_label = "post"
         db_table = "contacts"
@@ -33,20 +78,20 @@ class Contact(models.Model):
         verbose_name_plural = _("contacts")
 
     def __str__(self):
-        return ""
+        return f"contact for {self.first_name} {self.last_name}"
 
 
 class Post(models.Model):
 
     author = models.ForeignKey(
-        "client.Client",
+        "user.User",
         on_delete=models.CASCADE,
         related_name="posts",
         verbose_name=_("author"),
     )
 
     address = models.ForeignKey(
-        "adress.Address",
+        "address.Address",
         on_delete=models.CASCADE,
         related_name="posts",
         verbose_name=_("address"),
@@ -63,6 +108,10 @@ class Post(models.Model):
         _("details"),
     )
 
+    images = models.ManyToManyField(
+        "media.Media",
+    )
+
     date_created = models.DateTimeField(
         _("date created"),
         auto_now_add=True,
@@ -76,11 +125,11 @@ class Post(models.Model):
     )
 
     class Meta:
-        abstract = True
         app_label = "post"
         db_table = "posts"
         verbose_name = _("post")
         verbose_name_plural = _("posts")
+        ordering = ("date_updated",)
 
     def __str__(self):
         out = [

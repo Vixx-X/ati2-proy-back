@@ -2,7 +2,7 @@ from django.apps import AppConfig
 from django.utils.translation import gettext_lazy as _
 
 
-class VehicleConfig(AppConfig):
-    name = "back.apps.vehicle"
-    label = "vehicle"
-    verbose_name = _("vehicle")
+class PostConfig(AppConfig):
+    name = "back.apps.post"
+    label = "post"
+    verbose_name = _("post")

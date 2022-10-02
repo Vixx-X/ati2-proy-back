@@ -1,24 +1,15 @@
 from django_filters import rest_framework as filters
 
-from .models import Vehicle
+from .models import DayOption
 
-class VehicleFilter(filters.FilterSet):
 
-    brand = filters.CharFilter(
-        field_name="brand",
-        lookup_expr="icontains",
-    )
+class DayOptionFilter(filters.FilterSet):
 
-    model = filters.CharFilter(
-        field_name="model",
-        lookup_expr="icontains",
-    )
-
-    year = filters.CharFilter(
-        field_name="year",
+    option = filters.CharFilter(
+        field_name="option",
         lookup_expr="icontains",
     )
 
     class Meta:
-        model = Vehicle
+        model = DayOption
         fields = []
