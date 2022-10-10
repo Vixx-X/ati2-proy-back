@@ -55,18 +55,21 @@ class Vehicle(models.Model):
         verbose_name=_("type"),
         max_length=4,
         choices=VehicleType.choices,
+        null=True,
     )
 
     date_created = models.DateTimeField(
         _("date created"),
         auto_now_add=True,
         db_index=True,
+        null=True,
     )
 
     date_updated = models.DateTimeField(
         _("date updated"),
         auto_now=True,
         db_index=True,
+        null=True,
     )
 
     class Meta:
