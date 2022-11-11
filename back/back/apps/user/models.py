@@ -13,6 +13,8 @@ class UserSocial(models.Model):
     value = models.CharField(
         _("value"),
         max_length=255,
+        blank=True,
+        null=True,
     )
 
     social = models.ForeignKey(
@@ -20,6 +22,7 @@ class UserSocial(models.Model):
         on_delete=models.CASCADE,
         verbose_name=_("social"),
         related_name="user_socials",
+        null=True,
     )
 
     notification_method = models.ForeignKey(
