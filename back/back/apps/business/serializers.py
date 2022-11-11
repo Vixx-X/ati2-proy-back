@@ -45,5 +45,18 @@ class BussinessRegisterSerializer(BusinessSerializer):
     user = UserRegisterSerializer()
 
     def create(self, validated_data):
-        obj = super().create(validated_data)
+        user = validated_data.pop("user")
+        representant = validated_data.pop("representant")
+        address = validated_data.pop("address")
+
+        user = UserRegisterSerializer().create(user)
+        validated_data["user"] = user
+
+        representant = RepresentantSerializer().create(representant)
+        validated_data["representant"] = representant
+
+        address = AddressSerializer().create(address)
+        validated_data["address"] = address
+
+        obj = models.Business.objects.create(**validated_data)
         return obj, obj.user

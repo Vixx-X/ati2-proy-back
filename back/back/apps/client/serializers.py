@@ -31,5 +31,8 @@ class NaturalPersonRegisterSerializer(NaturalPersonSerializer):
     user = UserRegisterSerializer()
 
     def create(self, validated_data):
-        obj = super().create(validated_data)
+        user = validated_data.pop("user")
+        user = UserRegisterSerializer().create(user)
+        validated_data["user"] = user
+        obj = NaturalPerson.objects.create(**validated_data)
         return obj, obj.user

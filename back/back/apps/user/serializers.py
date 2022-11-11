@@ -30,6 +30,11 @@ class NotificationMethodSerializer(serializers.ModelSerializer):
         model = models.NotificationMethod
         fields = "__all__"
 
+    def validate(self, attrs):
+        if not attrs:
+            raise serializers.ValidationError(_("Must include at least one notification method"))
+        return super().validate(attrs)
+
     def create(self, validated_data):
         socials = validated_data.pop("socials")
         obj = models.NotificationMethod.objects.create(**validated_data)
@@ -82,7 +87,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         notification_setting = validated_data.pop("notification_setting")
-        payment_info = validated_data.pop("validated_data")
+        payment_info = validated_data.pop("payment_info")
         about_website = validated_data.pop("about_website")
         obj = models.User.objects.create(**validated_data, is_active=True)
         notification_setting["user"] = obj
