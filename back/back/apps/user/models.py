@@ -42,10 +42,14 @@ class UserSocial(models.Model):
 class NotificationMethod(models.Model):
     email = models.EmailField(
         _("send notification"),
+        blank=True,
+        null=True,
     )
 
     sms = PhoneNumberField(
         _("text message"),
+        blank=True,
+        null=True,
     )
 
     other = models.TextField(
@@ -56,6 +60,8 @@ class NotificationMethod(models.Model):
 
     facebook = models.EmailField(
         _("facebook mail"),
+        blank=True,
+        null=True,
     )
 
     class Meta:
