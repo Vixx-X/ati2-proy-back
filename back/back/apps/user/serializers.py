@@ -53,9 +53,9 @@ class NotificationSettingSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         notification_method = validated_data.pop("notification_method")
+        obj = NotificationMethodSerializer().create(validated_data=notification_method)
+        validated_data["notification_method"] = obj
         obj = models.NotificationSetting.objects.create(**validated_data)
-        notification_method["notification_setting"] = obj
-        NotificationMethodSerializer().create(validated_data=notification_method)
         return obj
 
 
@@ -89,7 +89,7 @@ class UserSerializer(serializers.ModelSerializer):
         notification_setting = validated_data.pop("notification_setting")
         payment_info = validated_data.pop("payment_info")
         about_website = validated_data.pop("about_website")
-        obj = models.User.objects.create(**validated_data, is_active=True)
+        obj = models.User.objects.create_user(**validated_data, is_active=True)
         notification_setting["user"] = obj
         payment_info["user"] = obj
         about_website["user"] = obj

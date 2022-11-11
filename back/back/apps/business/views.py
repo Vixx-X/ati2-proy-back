@@ -18,7 +18,6 @@ class BusinessViewSet(viewsets.ModelViewSet):
     serializer_class = BusinessSerializer
 
 
-class BusinessRegistrationView(generics.CreateAPIView, RegistrationMixin):
+class BusinessRegistrationView(RegistrationMixin, generics.CreateAPIView):
     register_serializer_class = BussinessRegisterSerializer
     serializer_class = BusinessSerializer
-    permission_classes = (AllowAny,)
