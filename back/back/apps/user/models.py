@@ -50,6 +50,8 @@ class NotificationMethod(models.Model):
 
     other = models.TextField(
         _("other method"),
+        blank=True,
+        null=True,
     )
 
     facebook = models.EmailField(
@@ -154,6 +156,8 @@ class AboutWebSite(models.Model):
 
     other = models.TextField(
         _("other method"),
+        blank=True,
+        null=True,
     )
 
     user = models.OneToOneField(

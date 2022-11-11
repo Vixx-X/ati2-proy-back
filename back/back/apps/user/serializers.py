@@ -40,7 +40,7 @@ class NotificationMethodSerializer(serializers.ModelSerializer):
 
 
 class NotificationSettingSerializer(serializers.ModelSerializer):
-    notification_method = NotificationMethodSerializer()
+    notification_method = NotificationMethodSerializer(allow_null=True)
 
     class Meta:
         model = models.NotificationSetting
