@@ -13,4 +13,9 @@ urlpatterns = [
         "about/",
         include(router.urls),
     ),
+    path(
+        "about/page-setting/",
+        views.PageSettingView.as_view(),
+        name="page-setting",
+    ),
 ]
