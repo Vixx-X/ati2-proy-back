@@ -23,9 +23,22 @@ from .serializers import (
     OTPRequestSerializer,
     ChangePasswordSerializer,
     ChangeEmailSerializer,
+    UserProfileSerializer,
 )
 
 from .models import User
+
+
+class ProfileView(generics.RetrieveAPIView):
+    """
+    Get data for current user
+    """
+
+    serializer_class = UserProfileSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def get_object(self):
+        return self.request.user
 
 
 class PasswordResetView(generics.GenericAPIView):

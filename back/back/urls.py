@@ -99,6 +99,10 @@ urlpatterns = (
             "",
             include(("back.apps.post.urls", "back.apps.post"), namespace="post"),
         ),
+        path(
+            "",
+            include(("back.apps.about.urls", "back.apps.about"), namespace="about"),
+        ),
         # docs
         path("docs/", include(docs_urls)),
         # misc

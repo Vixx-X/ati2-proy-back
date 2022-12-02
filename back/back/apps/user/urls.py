@@ -8,6 +8,11 @@ from . import views
 
 user_urls = [
     path(
+        "profile/",
+        views.ProfileView.as_view(),
+        name="profile",
+    ),
+    path(
         "password-reset/",
         views.PasswordResetView.as_view(),
         name="password-reset",

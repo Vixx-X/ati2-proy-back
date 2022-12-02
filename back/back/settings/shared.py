@@ -85,6 +85,7 @@ INSTALLED_APPS = [
     'back.apps.job.apps.JobConfig',
     'back.apps.service.apps.ServiceConfig',
     'back.apps.media.apps.MediaConfig',
+    'back.apps.about.apps.AboutConfig',
 
     ## 3rd parties ##
     'django_filters',

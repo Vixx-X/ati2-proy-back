@@ -17,6 +17,12 @@ from . import models
 User = models.User
 
 
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        exclude = ["password", "is_superuser", "groups", "user_permissions"]
+
+
 class UserSocialSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.UserSocial
@@ -32,7 +38,9 @@ class NotificationMethodSerializer(serializers.ModelSerializer):
 
     def validate(self, attrs):
         if not attrs:
-            raise serializers.ValidationError(_("Must include at least one notification method"))
+            raise serializers.ValidationError(
+                _("Must include at least one notification method")
+            )
         return super().validate(attrs)
 
     def create(self, validated_data):
