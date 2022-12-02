@@ -7,19 +7,19 @@ from . import serializers, filters, models
 
 
 class BrandListView(generics.ListAPIView):
-    queryset = models.Vehicle.objects.all()
+    queryset = models.Vehicle.objects.all().distinct("brand")
     serializer_class = serializers.BrandSerializer
     filterset_class = filters.VehicleFilter
 
 
 class ModelListView(generics.ListAPIView):
-    queryset = models.Vehicle.objects.all()
+    queryset = models.Vehicle.objects.all().distinct("model")
     serializer_class = serializers.ModelSerializer
     filterset_class = filters.VehicleFilter
 
 
 class YearListView(generics.ListAPIView):
-    queryset = models.Vehicle.objects.all()
+    queryset = models.Vehicle.objects.all().distinct("year")
     serializer_class = serializers.YearSerializer
     filterset_class = filters.VehicleFilter
 
