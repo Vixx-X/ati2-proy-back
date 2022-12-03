@@ -62,6 +62,12 @@ class Country(models.Model):
         max_length=128,
     )
 
+    phone_code = models.CharField(
+        _("Phone code"),
+        max_length=5,
+        blank=True,
+    )
+
     display_order = models.PositiveSmallIntegerField(
         _("Display order"),
         default=0,

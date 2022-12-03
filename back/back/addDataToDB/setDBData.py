@@ -5,7 +5,8 @@ from django.db import connection
 import geonamescache
 from countryinfo import CountryInfo
 from geosky import geo_plug
-from back.apps.address.models import Address, City, Continent, Country, State
+from back.apps.address.models import City, Continent, Country, State
+from phonenumbers.phonenumberutil import country_code_for_region
 
 gc = geonamescache.GeonamesCache()
 continents = gc.get_continents()
@@ -36,9 +37,10 @@ for country in countries:
         iso_3166_1_numeric=countries[country]['isonumeric'],
         printable_name=countries[country]['name'],
         name=countries[country]['name'],
+        phone_code=country_code_for_region(countries[country]['iso'])
         continent=continent,
     ).save()
-        
+
     try:
         countryDB = Country.objects.filter(name=countries[country]['name']).first()
         countryInfo = CountryInfo(countries[country]['name'])
