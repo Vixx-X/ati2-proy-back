@@ -11,8 +11,8 @@ class ContinentListAdmin(admin.ModelAdmin):
 
 @admin.register(models.Country)
 class CountryListAdmin(admin.ModelAdmin):
-    search_fields = ("iso_3166_1_a2", "name", "printable_name")
-    list_display = ("name", "printable_name", "continent")
+    search_fields = ("iso_3166_1_a2", "name", "printable_name", "phone_code")
+    list_display = ("name", "printable_name", "continent", "phone_code")
     list_filter = ("continent",)
 
 
