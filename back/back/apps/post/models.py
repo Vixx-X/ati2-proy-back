@@ -108,7 +108,7 @@ class Post(models.Model):
         _("details"),
     )
 
-    images = models.ManyToManyField(
+    media = models.ManyToManyField(
         "media.Media",
     )
 

@@ -7,10 +7,12 @@ class OwnMediaPermission(permissions.BasePermission):
     """
 
     def has_object_permission(self, request, view, obj):
-        # Read permissions are allowed to any request,
-        # so we'll always allow GET, HEAD or OPTIONS requests.
-        if request.method in permissions.SAFE_METHODS:
+        # Only auth requests,
+        if not request.user.is_authenticated:
+            return False
+
+        if not obj:  # or request.user.is_staff:
             return True
 
-        # obj here is a UserProfile instance
+        # obj here is a Media instance
         return obj.user == request.user
