@@ -37,7 +37,7 @@ for country in countries:
         iso_3166_1_numeric=countries[country]['isonumeric'],
         printable_name=countries[country]['name'],
         name=countries[country]['name'],
-        phone_code=country_code_for_region(countries[country]['iso'].upper())
+        phone_code=country_code_for_region(countries[country]['iso'].upper()),
         continent=continent,
     ).save()
 
