@@ -17,7 +17,7 @@ class CountrySerializer(serializers.ModelSerializer):
 
     @extend_schema_field(OpenApiTypes.URI)
     def get_img(self, obj):
-        code = obj.iso_3166_1_a2
+        code = obj.iso_3166_1_a2.lower()
         return f"https://flagcdn.com/w20/{code}.png"
 
     class Meta:
