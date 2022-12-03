@@ -32,12 +32,12 @@ CONTINENTS_CODE = {
 for country in countries:
     continent = Continent.objects.filter(name=CONTINENTS_CODE[countries[country]['continentcode']]).first()
     countryDB = Country(
-        iso_3166_1_a2=countries[country]['iso'],
+        iso_3166_1_a2=countries[country]['iso'].upper(),
         iso_3166_1_a3=countries[country]['iso3'],
         iso_3166_1_numeric=countries[country]['isonumeric'],
         printable_name=countries[country]['name'],
         name=countries[country]['name'],
-        phone_code=country_code_for_region(countries[country]['iso'])
+        phone_code=country_code_for_region(countries[country]['iso'].upper())
         continent=continent,
     ).save()
 
