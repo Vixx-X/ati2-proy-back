@@ -4,7 +4,7 @@ from . import views
 
 router = routers.DefaultRouter()
 router.register(
-    r"multimedia",
+    r"media",
     views.MediaViewSet,
 )
 

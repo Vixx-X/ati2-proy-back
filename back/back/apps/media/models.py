@@ -20,12 +20,12 @@ class Media(models.Model):
     )
 
     class MediaType(models.TextChoices):
-        PHOTO = "PHO", _("Image")
-        VIDEO = "VID", _("Video")
+        PHOTO = "PHOTO", _("Image")
+        VIDEO = "VIDEO", _("Video")
 
     type = models.CharField(
         verbose_name=_("type"),
-        max_length=4,
+        max_length=8,
         choices=MediaType.choices,
     )
 

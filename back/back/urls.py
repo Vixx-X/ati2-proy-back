@@ -67,41 +67,45 @@ urlpatterns = (
         # apps
         path(
             "",
-            include(("back.apps.user.urls", "back.apps.user"), namespace="user"),
+            include(("back.apps.user.urls", "back.apps.user"), namespace="user",),
         ),
         path(
             "",
             include(
-                ("back.apps.address.urls", "back.apps.address"), namespace="address"
+                ("back.apps.address.urls", "back.apps.address"), namespace="address",
             ),
         ),
         path(
             "",
             include(
-                ("back.apps.vehicle.urls", "back.apps.vehicle"), namespace="vehicle"
+                ("back.apps.vehicle.urls", "back.apps.vehicle"), namespace="vehicle",
             ),
         ),
         path(
             "",
-            include(("back.apps.social.urls", "back.apps.social"), namespace="social"),
+            include(("back.apps.social.urls", "back.apps.social"), namespace="social",),
         ),
         path(
             "",
-            include(("back.apps.client.urls", "back.apps.client"), namespace="client"),
+            include(("back.apps.client.urls", "back.apps.client"), namespace="client",),
         ),
         path(
             "",
             include(
-                ("back.apps.business.urls", "back.apps.business"), namespace="business"
+                ("back.apps.business.urls", "back.apps.business"), namespace="business",
             ),
         ),
         path(
             "",
-            include(("back.apps.post.urls", "back.apps.post"), namespace="post"),
+            include(("back.apps.post.urls", "back.apps.post"), namespace="post",),
         ),
         path(
             "",
-            include(("back.apps.about.urls", "back.apps.about"), namespace="about"),
+            include(("back.apps.media.urls", "back.apps.media"), namespace="media",),
+        ),
+        path(
+            "",
+            include(("back.apps.about.urls", "back.apps.about"), namespace="about",),
         ),
         # docs
         path("docs/", include(docs_urls)),
