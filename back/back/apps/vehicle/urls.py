@@ -23,7 +23,7 @@ vehicle_urls = [
         name="vehicle-list",
     ),
     path(
-        "<int:id>/",
+        "<int:pk>/",
         views.VehicleDetailView.as_view(),
         name="vehicle-detail",
     ),
