@@ -97,7 +97,7 @@ class Post(models.Model):
         verbose_name=_("address"),
     )
 
-    contact = models.OneToOneField(
+    contact = models.ForeignKey(
         "post.Contact",
         on_delete=models.CASCADE,
         related_name="post",
@@ -110,6 +110,7 @@ class Post(models.Model):
 
     media = models.ManyToManyField(
         "media.Media",
+        blank=True,
     )
 
     date_created = models.DateTimeField(
