@@ -6,6 +6,7 @@ from back.apps.post.serializers import ContactSellerSerializer
 from back.apps.user.models import User
 
 from .models import Vehicle, VehiclePost
+from back.apps.media.models import Media
 
 
 class BrandSerializer(serializers.ModelSerializer):
@@ -38,6 +39,11 @@ class VehiclePostSerializer(serializers.ModelSerializer):
     author = serializers.PrimaryKeyRelatedField(
         default=serializers.CurrentUserDefault(),
         queryset=User.objects.all(),
+    )
+    media = serializers.PrimaryKeyRelatedField(
+        queryset=Media.objects.all(),
+        many=True,
+        allow_empty=True,
     )
 
     class Meta:

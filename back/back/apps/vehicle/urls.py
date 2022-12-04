@@ -1,5 +1,4 @@
 from django.urls.conf import path, include
-from rest_framework import routers
 from . import views
 
 vehicle_urls = [
@@ -22,6 +21,11 @@ vehicle_urls = [
         "",
         views.VehicleListView.as_view(),
         name="vehicle-list",
+    ),
+    path(
+        "",
+        views.VehicleDetailView.as_view(),
+        name="vehicle-detail",
     ),
 ]
 

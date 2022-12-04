@@ -29,6 +29,10 @@ class VehicleListView(generics.ListAPIView):
     serializer_class = serializers.VehicleSerializer
     filterset_class = filters.VehicleFilter
 
+class VehicleDetailView(generics.RetrieveAPIView):
+    queryset = models.Vehicle.objects.all()
+    serializer_class = serializers.VehicleSerializer
+
 
 class VehiclePostViewSet(viewsets.ModelViewSet):
     user_attr = "author"
