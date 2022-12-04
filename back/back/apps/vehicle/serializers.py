@@ -45,6 +45,14 @@ class VehiclePostSerializer(serializers.ModelSerializer):
         many=True,
         allow_empty=True,
     )
+    vehicle = VehicleSerializer(
+        read_only=True,
+    )
+    vehicle_id = serializers.PrimaryKeyRelatedField(
+        write_only=True,
+        source="vehicle",
+        queryset=Vehicle.objects.all(),
+    )
 
     class Meta:
         model = VehiclePost

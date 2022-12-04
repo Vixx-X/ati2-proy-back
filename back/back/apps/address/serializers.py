@@ -13,6 +13,15 @@ class ContinentSerializer(serializers.ModelSerializer):
 
 
 class CountrySerializer(serializers.ModelSerializer):
+    continent = ContinentSerializer(
+        read_only=True,
+    )
+    continent_id = serializers.PrimaryKeyRelatedField(
+        write_only=True,
+        source="continent",
+        queryset=models.Continent.objects.all(),
+    )
+
     img = serializers.SerializerMethodField()
 
     @extend_schema_field(OpenApiTypes.URI)
@@ -26,18 +35,45 @@ class CountrySerializer(serializers.ModelSerializer):
 
 
 class StateSerializer(serializers.ModelSerializer):
+    country = CountrySerializer(
+        read_only=True,
+    )
+    country_id = serializers.PrimaryKeyRelatedField(
+        write_only=True,
+        source="country",
+        queryset=models.Country.objects.all(),
+    )
+
     class Meta:
         model = models.State
         fields = "__all__"
 
 
 class CitySerializer(serializers.ModelSerializer):
+    state = StateSerializer(
+        read_only=True,
+    )
+    state_id = serializers.PrimaryKeyRelatedField(
+        write_only=True,
+        source="state",
+        queryset=models.State.objects.all(),
+    )
+
     class Meta:
         model = models.City
         fields = "__all__"
 
 
 class AddressSerializer(serializers.ModelSerializer):
+    city = CitySerializer(
+        read_only=True,
+    )
+    city_id = serializers.PrimaryKeyRelatedField(
+        write_only=True,
+        source="city",
+        queryset=models.City.objects.all(),
+    )
+
     class Meta:
         model = models.Address
         fields = "__all__"
