@@ -77,6 +77,16 @@ class PageSetting(SingletonModel):
         blank=True,
     )
 
+    first_name = models.CharField(
+        _("owner first name"),
+        max_length=128,
+    )
+
+    last_name = models.CharField(
+        _("owner last name"),
+        max_length=128,
+    )
+
     class Meta:
         app_label = "about"
         db_table = "page_setting"
