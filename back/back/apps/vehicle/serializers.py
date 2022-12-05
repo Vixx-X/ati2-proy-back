@@ -88,5 +88,11 @@ class VehiclePostSerializer(serializers.ModelSerializer):
         address = AddressSerializer().create(address)
         validated_data["address"] = address
 
+        videos = validated_data.pop("videos")
+        images = validated_data.pop("images")
+
         obj = VehiclePost.objects.create(**validated_data)
+
+        obj.videos.set(videos)
+        obj.images.set(images)
         return obj
