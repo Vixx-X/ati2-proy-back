@@ -78,6 +78,26 @@ class VehiclePostSerializer(serializers.ModelSerializer):
         model = VehiclePost
         fields = "__all__"
 
+    def update(self, instance, validated_data):
+        contact = validated_data.pop("contact")
+        address = validated_data.pop("address")
+
+        contact = ContactSerializer().create(contact)
+        instance.contact = contact
+
+        address = AddressSerializer().create(address)
+        instance.address = address
+
+        videos = validated_data.pop("videos")
+        images = validated_data.pop("images")
+
+        obj = VehiclePost.objects.update(id=instance.id, **validated_data)
+
+        obj.videos.set(videos)
+        obj.images.set(images)
+
+        return obj
+
     def create(self, validated_data):
         contact = validated_data.pop("contact")
         address = validated_data.pop("address")
