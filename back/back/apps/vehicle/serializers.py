@@ -82,10 +82,10 @@ class VehiclePostSerializer(serializers.ModelSerializer):
         contact = validated_data.pop("contact")
         address = validated_data.pop("address")
 
-        contact = ContactSerializer().create(contact)
+        contact = ContactSerializer().update(instance.contact, contact)
         instance.contact = contact
 
-        address = AddressSerializer().create(address)
+        address = AddressSerializer().update(instance.address, address)
         instance.address = address
 
         videos = validated_data.pop("videos")
