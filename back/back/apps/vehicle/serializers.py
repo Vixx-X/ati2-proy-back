@@ -54,11 +54,13 @@ class VehiclePostSerializer(serializers.ModelSerializer):
     )
 
     image_ids = serializers.PrimaryKeyRelatedField(
+        source="images",
         queryset=Media.objects.all(),
         many=True,
         allow_empty=True,
     )
     video_ids = serializers.PrimaryKeyRelatedField(
+        source="videos",
         queryset=Media.objects.all(),
         many=True,
         allow_empty=True,
