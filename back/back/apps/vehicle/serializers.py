@@ -97,7 +97,7 @@ class VehiclePostSerializer(serializers.ModelSerializer):
         videos = validated_data.pop("videos")
         images = validated_data.pop("images")
 
-        obj, _ = VehiclePost.objects.update_or_create(id=instance.id, **validated_data)
+        obj, _ = VehiclePost.objects.update_or_create(pk=instance.id, **validated_data)
 
         obj.videos.set(videos)
         obj.images.set(images)
