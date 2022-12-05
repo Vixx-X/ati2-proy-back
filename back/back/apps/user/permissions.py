@@ -24,6 +24,13 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
     Assumes the model instance has an `owner` attribute.
     """
 
+    def has_permission(self, request, view):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+
+        # view must have the instance attribute named `user_attr` else `user`.
+        return not request.user.is_authenticated
+
     def has_object_permission(self, request, view, obj):
         # Only create object new objects,
         # so we'll always allow GET, HEAD or OPTIONS requests.
@@ -33,4 +40,5 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
         # view must have the instance attribute named `user_attr` else `user`.
         if not request.user.is_authenticated:
             return False
+
         return getattr(obj, getattr(view, "user_attr", "user")) == request.user
