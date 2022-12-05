@@ -69,10 +69,16 @@ class VehiclePostSerializer(serializers.ModelSerializer):
     videos = serializers.SerializerMethodField()
 
     def get_images(self, obj) -> List[str]:
-        return [image.file.url for image in obj.images.all()]
+        return [
+            self.context["request"].build_absolute_uri(image.file.url)
+            for image in obj.images.all()
+        ]
 
     def get_videos(self, obj) -> List[str]:
-        return [video.file.url for video in obj.videos.all()]
+        return [
+            self.context["request"].build_absolute_uri(video.file.url)
+            for video in obj.videos.all()
+        ]
 
     class Meta:
         model = VehiclePost
