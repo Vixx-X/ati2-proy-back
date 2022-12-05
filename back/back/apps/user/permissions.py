@@ -31,4 +31,6 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
             return True
 
         # view must have the instance attribute named `user_attr` else `user`.
+        if not request.user.is_authenticated:
+            return False
         return getattr(obj, getattr(view, "user_attr", "user")) == request.user
