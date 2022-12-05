@@ -38,4 +38,4 @@ class Media(models.Model):
         verbose_name_plural = _("multimedias")
 
     def __str__(self):
-        return "media {self.pk}"
+        return f"media {self.pk}"

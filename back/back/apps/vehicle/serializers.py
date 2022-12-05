@@ -69,10 +69,10 @@ class VehiclePostSerializer(serializers.ModelSerializer):
     videos = serializers.SerializerMethodField()
 
     def get_images(self, obj) -> List[str]:
-        return [image.url for image in obj.images.all()]
+        return [image.file.url for image in obj.images.all()]
 
     def get_videos(self, obj) -> List[str]:
-        return [video.url for video in obj.videos.all()]
+        return [video.file.url for video in obj.videos.all()]
 
     class Meta:
         model = VehiclePost
@@ -93,6 +93,7 @@ class VehiclePostSerializer(serializers.ModelSerializer):
 
         obj = VehiclePost.objects.create(**validated_data)
 
-        obj.videos.set(Media.objects.filter(id__in=videos))
-        obj.images.set(Media.objects.filter(id__in=images))
+        obj.videos.set(videos)
+        obj.images.set(images)
+
         return obj
