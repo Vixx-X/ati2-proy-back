@@ -108,9 +108,18 @@ class Post(models.Model):
         _("details"),
     )
 
-    media = models.ManyToManyField(
+    images = models.ManyToManyField(
         "media.Media",
         blank=True,
+        verbose_name=_("images"),
+        related_name="+",
+    )
+
+    videos = models.ManyToManyField(
+        "media.Media",
+        blank=True,
+        verbose_name=_("videos"),
+        related_name="+",
     )
 
     date_created = models.DateTimeField(

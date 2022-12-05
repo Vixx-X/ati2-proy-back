@@ -19,16 +19,6 @@ class Media(models.Model):
         upload_to="uploads/%Y/%m/%d/",
     )
 
-    class MediaType(models.TextChoices):
-        PHOTO = "PHOTO", _("Image")
-        VIDEO = "VIDEO", _("Video")
-
-    type = models.CharField(
-        verbose_name=_("type"),
-        max_length=8,
-        choices=MediaType.choices,
-    )
-
     date_created = models.DateTimeField(
         _("date created"),
         auto_now_add=True,
@@ -48,4 +38,4 @@ class Media(models.Model):
         verbose_name_plural = _("multimedias")
 
     def __str__(self):
-        return "media {self.type} {self.pk}"
+        return "media {self.pk}"

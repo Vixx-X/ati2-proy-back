@@ -1,9 +1,13 @@
+from typing import List
 from rest_framework import serializers
 from django.utils.translation import gettext_lazy as _
 
 from back.apps.address.serializers import AddressSerializer
 from back.apps.post.serializers import ContactSerializer
 from back.apps.user.models import User
+
+from drf_spectacular.types import OpenApiTypes
+from drf_spectacular.utils import extend_schema_field
 
 from .models import Vehicle, VehiclePost
 from back.apps.media.models import Media
@@ -40,11 +44,6 @@ class VehiclePostSerializer(serializers.ModelSerializer):
         default=serializers.CurrentUserDefault(),
         queryset=User.objects.all(),
     )
-    media = serializers.PrimaryKeyRelatedField(
-        queryset=Media.objects.all(),
-        many=True,
-        allow_empty=True,
-    )
     vehicle = VehicleSerializer(
         read_only=True,
     )
@@ -53,6 +52,25 @@ class VehiclePostSerializer(serializers.ModelSerializer):
         source="vehicle",
         queryset=Vehicle.objects.all(),
     )
+
+    image_ids = serializers.PrimaryKeyRelatedField(
+        queryset=Media.objects.all(),
+        many=True,
+        allow_empty=True,
+    )
+    video_ids = serializers.PrimaryKeyRelatedField(
+        queryset=Media.objects.all(),
+        many=True,
+        allow_empty=True,
+    )
+    images = serializers.SerializerMethodField()
+    videos = serializers.SerializerMethodField()
+
+    def get_images(self, obj) -> List[str]:
+        return [image.url for image in obj.images.all()]
+
+    def get_videos(self, obj) -> List[str]:
+        return [video.url for video in obj.videos.all()]
 
     class Meta:
         model = VehiclePost
