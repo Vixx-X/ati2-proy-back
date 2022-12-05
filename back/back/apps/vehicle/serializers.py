@@ -93,6 +93,6 @@ class VehiclePostSerializer(serializers.ModelSerializer):
 
         obj = VehiclePost.objects.create(**validated_data)
 
-        obj.videos.set(videos)
-        obj.images.set(images)
+        obj.videos.set(Media.objects.filter(id__in=videos))
+        obj.images.set(Media.objects.filter(id__in=images))
         return obj
