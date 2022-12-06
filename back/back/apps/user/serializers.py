@@ -124,7 +124,7 @@ class PasswordResetSerializer(serializers.Serializer):
     document_id = serializers.CharField(required=False)
 
     def validate(self, attrs):
-        if not attrs["email"] and not attrs["document_id"]:
+        if not attrs.get("email") and not get("document_id"):
             raise serializers.ValidationError(_("This field is required"))
         return super().validate(attrs)
 
@@ -158,7 +158,7 @@ class PasswordResetSerializer(serializers.Serializer):
         site = get_current_site(request)
         if domain_override is not None:
             site.domain = site.name = domain_override
-        for user in self.get_users(self.data["email"] or self.data["document_id"]):
+        for user in self.get_users(self.data.get("email") or self.data.get("document_id")):
             self.send_password_reset_email(site, user)
 
     def send_password_reset_email(self, site, user):
