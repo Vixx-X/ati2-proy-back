@@ -41,6 +41,18 @@ class VehiclePostFilter(filters.FilterSet):
         lookup_expr="icontains",
     )
 
+    continent = filters.Filter(
+        field_name="address__continent",
+    )
+
+    country = filters.Filter(
+        field_name="address__country",
+    )
+
+    state = filters.Filter(
+        field_name="address__state",
+    )
+
     class Meta:
         model = VehiclePost
         fields = "__all__"
