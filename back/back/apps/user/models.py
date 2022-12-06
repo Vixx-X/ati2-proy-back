@@ -208,6 +208,10 @@ class User(AbstractUser):
     first_name = None
     last_name = None
 
+    @classmethod
+    def get_identifier_fields(cls):
+        return ["email", "natural_person__document_id", "business__tax_id"]
+
 
 class EmailDevice(BaseEmailDevice):
     """

@@ -1,3 +1,4 @@
+from django.db.models import Q
 from rest_framework import serializers
 from django.core.exceptions import ValidationError
 from django.contrib.auth import password_validation
@@ -119,26 +120,34 @@ def get_password_reset_url(user, token_generator=default_token_generator):
 
 
 class PasswordResetSerializer(serializers.Serializer):
-    email = serializers.EmailField()
+    email = serializers.EmailField(required=False)
+    document_id = serializers.CharField(required=False)
 
-    def get_users(self, email):
+    def validate(self, attrs):
+        if not attrs["email"] and not attrs["document_id"]:
+            raise serializers.ValidationError(_("This field is required"))
+        return super().validate(attrs)
+
+    def get_users(self, email_or_document_id):
         """Given an email, return matching user(s) who should receive a reset.
         This allows subclasses to more easily customize the default policies
         that prevent inactive users and users with unusable passwords from
         resetting their password.
         """
-        email_field_name = User.get_email_field_name()
-        active_users = User._default_manager.filter(
-            **{
-                "%s__iexact" % email_field_name: email,
-                "is_active": True,
-            }
-        )
+        identifier_fields = User.get_identifier_fields()
+        query = Q()
+        for field_name in identifier_fields:
+            query |= Q(**{"%s__iexact" % field_name: email_or_document_id})
+        query &= Q(is_active=True)
+        active_users = User._default_manager.filter(query)
         return (
             u
             for u in active_users
             if u.has_usable_password()
-            and _unicode_ci_compare(email, getattr(u, email_field_name))
+            and any(
+                _unicode_ci_compare(email_or_document_id, getattr(u, field_name))
+                for field_name in identifier_fields
+            )
         )
 
     def save(self, domain_override=None, request=None):
@@ -149,7 +158,7 @@ class PasswordResetSerializer(serializers.Serializer):
         site = get_current_site(request)
         if domain_override is not None:
             site.domain = site.name = domain_override
-        for user in self.get_users(self.data["email"]):
+        for user in self.get_users(self.data["email"] or self.data["document_id"]):
             self.send_password_reset_email(site, user)
 
     def send_password_reset_email(self, site, user):
