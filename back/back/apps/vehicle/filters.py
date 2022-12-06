@@ -46,12 +46,15 @@ class VehiclePostFilter(filters.FilterSet):
     )
 
     country = filters.Filter(
-        field_name="address__city__state_country",
+        field_name="address__city__state__country",
     )
 
     state = filters.Filter(
         field_name="address__city__state",
     )
+
+    sale_price = filters.RangeFilter()
+    rental_price = filters.RangeFilter()
 
     class Meta:
         model = VehiclePost
