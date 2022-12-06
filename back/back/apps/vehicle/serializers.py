@@ -6,8 +6,7 @@ from back.apps.address.serializers import AddressSerializer
 from back.apps.post.serializers import ContactSerializer
 from back.apps.user.models import User
 
-from drf_spectacular.types import OpenApiTypes
-from drf_spectacular.utils import extend_schema_field
+from rest_framework.utils import model_meta
 
 from .models import Vehicle, VehiclePost
 from back.apps.media.models import Media
@@ -97,12 +96,32 @@ class VehiclePostSerializer(serializers.ModelSerializer):
         videos = validated_data.pop("videos")
         images = validated_data.pop("images")
 
-        obj, _ = VehiclePost.objects.update_or_create(pk=instance.id, **validated_data)
+        info = model_meta.get_field_info(instance)
 
-        obj.videos.set(videos)
-        obj.images.set(images)
+        # Simply set each attribute on the instance, and then save it.
+        # Note that unlike `.create()` we don't need to treat many-to-many
+        # relationships as being a special case. During updates we already
+        # have an instance pk for the relationships to be associated with.
+        m2m_fields = []
+        for attr, value in validated_data.items():
+            if attr in info.relations and info.relations[attr].to_many:
+                m2m_fields.append((attr, value))
+            else:
+                setattr(instance, attr, value)
 
-        return obj
+        instance.save()
+
+        # Note that many-to-many fields are set after updating instance.
+        # Setting m2m fields triggers signals which could potentially change
+        # updated instance and we do not want it to collide with .update()
+        for attr, value in m2m_fields:
+            field = getattr(instance, attr)
+            field.set(value)
+
+        instance.videos.set(videos)
+        instance.images.set(images)
+
+        return instance
 
     def create(self, validated_data):
         contact = validated_data.pop("contact")
