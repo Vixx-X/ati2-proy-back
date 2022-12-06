@@ -124,7 +124,7 @@ class PasswordResetSerializer(serializers.Serializer):
     document_id = serializers.CharField(required=False)
 
     def validate(self, attrs):
-        if not attrs.get("email") and not get("document_id"):
+        if not attrs.get("email") and not attrs.get("document_id"):
             raise serializers.ValidationError(_("This field is required"))
         return super().validate(attrs)
 
