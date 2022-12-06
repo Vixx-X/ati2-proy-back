@@ -42,14 +42,9 @@ class Vehicle(models.Model):
     )
 
     class VehicleType(models.TextChoices):
-        HATC = "HB", _("Hatchback")
-        SEDA = "SDN", _("Sedan")
-        PICK = "PU", _("Pickup truck")
-        JEEP = "JEEP", _("Jeep")
-        SSUV = "SSUV", _("Small SUV")
-        MSUV = "MSUV", _("Mid-size SUV")
-        LSUV = "LSUV", _("Full-size SUV")
-        STAT = "SW", _("Station wagon")
+        CAR = "CAR", _("Car")
+        SUV = "SUV", _("SUV")
+        TRUCK = "TRUCK", _("Truck")
 
     type = models.CharField(
         verbose_name=_("type"),
