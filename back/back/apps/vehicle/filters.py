@@ -42,15 +42,15 @@ class VehiclePostFilter(filters.FilterSet):
     )
 
     continent = filters.Filter(
-        field_name="address__continent",
+        field_name="address__city__state__country__continent",
     )
 
     country = filters.Filter(
-        field_name="address__country",
+        field_name="address__city__state_country",
     )
 
     state = filters.Filter(
-        field_name="address__state",
+        field_name="address__city__state",
     )
 
     class Meta:
