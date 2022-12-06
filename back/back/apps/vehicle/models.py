@@ -48,7 +48,7 @@ class Vehicle(models.Model):
 
     type = models.CharField(
         verbose_name=_("type"),
-        max_length=4,
+        max_length=8,
         choices=VehicleType.choices,
         null=True,
     )
