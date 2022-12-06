@@ -63,11 +63,11 @@ class Contact(models.Model):
         "post.DayOption",
     )
 
-    contact_hour_start = models.DateTimeField(
+    contact_hour_start = models.TimeField(
         _("hour start"),
     )
 
-    contact_hour_end = models.DateTimeField(
+    contact_hour_end = models.TimeField(
         _("hour end"),
     )
 
