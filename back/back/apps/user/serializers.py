@@ -169,7 +169,6 @@ class PasswordResetSerializer(serializers.Serializer):
                 'non_field_errors': [
                     _("There is no active user with these credentials"),
                 ],
-                "code": "no_user",
             }
         )
 
