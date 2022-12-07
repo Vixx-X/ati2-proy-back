@@ -107,6 +107,10 @@ urlpatterns = (
             "",
             include(("back.apps.about.urls", "back.apps.about"), namespace="about",),
         ),
+        path(
+            "",
+            include(("back.apps.service.urls", "back.apps.service"), namespace="service",),
+        ),
         # docs
         path("docs/", include(docs_urls)),
         # misc
