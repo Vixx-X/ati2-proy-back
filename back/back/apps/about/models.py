@@ -87,6 +87,10 @@ class PageSetting(SingletonModel):
         max_length=128,
     )
 
+    bank_detail = models.JSONField(
+        _("bank detail"),
+    )
+
     class Meta:
         app_label = "about"
         db_table = "page_setting"
