@@ -165,7 +165,7 @@ class PasswordResetSerializer(serializers.Serializer):
             self.send_password_reset_email(site, user)
             return user
         raise serializers.ValidationError(
-            _("There is no active user with these credentials")
+            _("There is no active user with these credentials"),
             code="no_user",
         )
 
