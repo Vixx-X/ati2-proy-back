@@ -125,7 +125,10 @@ class PasswordResetSerializer(serializers.Serializer):
 
     def validate(self, attrs):
         if not attrs.get("email") and not attrs.get("document_id"):
-            raise serializers.ValidationError(_("This field is required"))
+            raise serializers.ValidationError(
+                _("This field is required"),
+                code="no_identifier_field",
+            )
         return super().validate(attrs)
 
     def get_users(self, email_or_document_id):
@@ -161,7 +164,10 @@ class PasswordResetSerializer(serializers.Serializer):
         for user in self.get_users(self.data.get("email") or self.data.get("document_id")):
             self.send_password_reset_email(site, user)
             return user
-        raise serializers.ValidationError(_("There is no active user with these credentials"))
+        raise serializers.ValidationError(
+            _("There is no active user with these credentials")
+            code="no_user",
+        )
 
     def send_password_reset_email(self, site, user):
         extra_context = {
@@ -188,7 +194,7 @@ class PasswordSerializer(serializers.Serializer):
             if password1 != password2:
                 raise ValidationError(
                     _("The two password fields didn’t match."),
-                    code="unmatch password",
+                    code="password_mismatch",
                 )
         password_validation.validate_password(password2, self.user)
         return password2
@@ -304,7 +310,10 @@ class UserRegisterSerializer(UserSerializer):
 
     def validate(self, attrs):
         if attrs["password1"] != attrs["password2"]:
-            raise serializers.ValidationError("Passwords do not match")
+            raise serializers.ValidationError(
+                "Passwords do not match",
+                code="password_mismatch",
+            )
 
         password_validation.validate_password(attrs["password1"])
         return attrs
