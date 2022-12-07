@@ -40,3 +40,4 @@ class VehiclePostViewSet(viewsets.ModelViewSet):
     queryset = models.VehiclePost.objects.all()
     serializer_class = serializers.VehiclePostSerializer
     filterset_class = filters.VehiclePostFilter
+    search_fields = ['vehicle__brand', 'vehicle__year', "vehicle__model", "address__city__state__name", "address__city__state__country__name", "address__city__state__country__continent__name", "currency","accesories", "services", ]
