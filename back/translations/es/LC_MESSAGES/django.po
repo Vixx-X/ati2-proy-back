@@ -55,7 +55,7 @@ msgstr "límite de vídeo"
 
 #: back/back/apps/about/models.py:71 back/back/apps/client/models.py:40
 msgid "phone number"
-msgstr ""
+msgstr "número de teléfono"
 
 #: back/back/apps/about/models.py:76 back/back/apps/client/models.py:45
 msgid "local phone number"
@@ -230,8 +230,8 @@ msgid "document id"
 msgstr "ID del documento"
 
 #: back/back/apps/client/models.py:51
-msgid "Country"
-msgstr "País"
+msgid "country"
+msgstr "país"
 
 #: back/back/apps/client/models.py:58
 msgid "Natural person"
@@ -401,8 +401,8 @@ msgid "Social name"
 msgstr "Nombre de la red social"
 
 #: back/back/apps/social/models.py:18
-msgid "Social"
-msgstr "Red social"
+msgid "social"
+msgstr "red social"
 
 #: back/back/apps/social/models.py:19
 msgid "Socials"
