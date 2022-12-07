@@ -104,12 +104,13 @@ class PasswordResetConfirmView(generics.GenericAPIView):
             "invalid_link",
             {
                 "invalid_link": serializers.BooleanField(),
+                "email": serializers.EmailField(),
             },
         ),
     )
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
-        data = {"invalid_link": self.object is None}
+        data = {"invalid_link": self.object is None, "email": self.object and self.object.email}
         if self.object is None:
             return Response(data, status=status.HTTP_410_GONE)
         return Response(data)
