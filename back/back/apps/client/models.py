@@ -33,7 +33,7 @@ class NaturalPerson(models.Model):
     document_id = models.CharField(
         _("document id"),
         max_length=150,
-        blank=True,
+        unique=True,
     )
 
     phone = PhoneNumberField(

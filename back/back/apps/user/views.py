@@ -51,8 +51,8 @@ class PasswordResetView(generics.GenericAPIView):
         opts = {
             "request": self.request,
         }
-        serializer.save(**opts)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        user = serializer.save(**opts)
+        return Response({"email": user.email}, status=status.HTTP_201_CREATED)
 
 
 class PasswordResetConfirmView(generics.GenericAPIView):

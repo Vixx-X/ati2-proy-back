@@ -160,6 +160,8 @@ class PasswordResetSerializer(serializers.Serializer):
             site.domain = site.name = domain_override
         for user in self.get_users(self.data.get("email") or self.data.get("document_id")):
             self.send_password_reset_email(site, user)
+            return user
+        raise serializers.ValidationError(_("There is no active user with these credentials"))
 
     def send_password_reset_email(self, site, user):
         extra_context = {

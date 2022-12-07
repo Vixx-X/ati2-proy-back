@@ -21,6 +21,7 @@ class Business(models.Model):
     tax_id = models.CharField(
         _("tax id"),
         max_length=255,
+        unique=True,
     )
 
     address = models.ForeignKey(
