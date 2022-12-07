@@ -1,0 +1,661 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-12-07 16:13-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+#: back/back/apps/about/apps.py:8
+msgid "about"
+msgstr ""
+
+#: back/back/apps/about/models.py:15
+msgid "contact email"
+msgstr ""
+
+#: back/back/apps/about/models.py:19
+msgid "client full name"
+msgstr ""
+
+#: back/back/apps/about/models.py:24
+msgid "contact reason"
+msgstr ""
+
+#: back/back/apps/about/models.py:31
+msgid "contact me submission"
+msgstr ""
+
+#: back/back/apps/about/models.py:32
+msgid "contact me submissions"
+msgstr ""
+
+#: back/back/apps/about/models.py:56
+msgid "page email"
+msgstr ""
+
+#: back/back/apps/about/models.py:61
+msgid "image limit"
+msgstr ""
+
+#: back/back/apps/about/models.py:66
+msgid "video limit"
+msgstr ""
+
+#: back/back/apps/about/models.py:71 back/back/apps/client/models.py:40
+msgid "phone number"
+msgstr ""
+
+#: back/back/apps/about/models.py:76 back/back/apps/client/models.py:45
+msgid "local phone number"
+msgstr ""
+
+#: back/back/apps/about/models.py:81
+msgid "owner first name"
+msgstr ""
+
+#: back/back/apps/about/models.py:86
+msgid "owner last name"
+msgstr ""
+
+#: back/back/apps/about/models.py:93
+msgid "page setting"
+msgstr ""
+
+#: back/back/apps/about/models.py:94
+msgid "page settings"
+msgstr ""
+
+#: back/back/apps/address/apps.py:8 back/back/apps/business/models.py:31
+#: back/back/apps/post/models.py:97
+msgid "address"
+msgstr ""
+
+#: back/back/apps/address/models.py:9 back/back/apps/address/models.py:61
+#: back/back/apps/address/models.py:120 back/back/apps/address/models.py:146
+msgid "Official name"
+msgstr ""
+
+#: back/back/apps/address/models.py:17 back/back/apps/address/models.py:81
+msgid "Continent"
+msgstr ""
+
+#: back/back/apps/address/models.py:18
+msgid "Continents"
+msgstr ""
+
+#: back/back/apps/address/models.py:34
+msgid "ISO 3166-1 alpha-2"
+msgstr ""
+
+#: back/back/apps/address/models.py:40
+msgid "ISO 3166-1 alpha-3"
+msgstr ""
+
+#: back/back/apps/address/models.py:46
+msgid "ISO 3166-1 numeric"
+msgstr ""
+
+#: back/back/apps/address/models.py:53
+msgid "Country name"
+msgstr ""
+
+#: back/back/apps/address/models.py:66
+msgid "Phone code"
+msgstr ""
+
+#: back/back/apps/address/models.py:72
+msgid "Display order"
+msgstr ""
+
+#: back/back/apps/address/models.py:75
+msgid "Higher the number, higher the country in the list."
+msgstr ""
+
+#: back/back/apps/address/models.py:88 back/back/apps/address/models.py:128
+#: back/back/apps/user/models.py:129
+msgid "Country"
+msgstr ""
+
+#: back/back/apps/address/models.py:89
+msgid "Countries"
+msgstr ""
+
+#: back/back/apps/address/models.py:135 back/back/apps/address/models.py:154
+msgid "State"
+msgstr ""
+
+#: back/back/apps/address/models.py:136
+msgid "States"
+msgstr ""
+
+#: back/back/apps/address/models.py:161 back/back/apps/address/models.py:186
+msgid "City"
+msgstr ""
+
+#: back/back/apps/address/models.py:162
+msgid "Cities"
+msgstr ""
+
+#: back/back/apps/address/models.py:173
+msgid "First line of address"
+msgstr ""
+
+#: back/back/apps/address/models.py:178
+msgid "Second line of address"
+msgstr ""
+
+#: back/back/apps/address/models.py:192
+msgid "Address"
+msgstr ""
+
+#: back/back/apps/address/models.py:193
+msgid "Addresses"
+msgstr ""
+
+#: back/back/apps/business/apps.py:8 back/back/apps/business/models.py:44
+msgid "business"
+msgstr ""
+
+#: back/back/apps/business/models.py:13 back/back/apps/client/models.py:13
+#: back/back/apps/media/models.py:14 back/back/apps/user/apps.py:8
+#: back/back/apps/user/models.py:100 back/back/apps/user/models.py:136
+#: back/back/apps/user/models.py:175
+msgid "user"
+msgstr ""
+
+#: back/back/apps/business/models.py:17
+msgid "name"
+msgstr ""
+
+#: back/back/apps/business/models.py:22
+msgid "tax id"
+msgstr ""
+
+#: back/back/apps/business/models.py:38 back/back/apps/business/models.py:78
+msgid "representant"
+msgstr ""
+
+#: back/back/apps/business/models.py:45
+msgid "businesses"
+msgstr ""
+
+#: back/back/apps/business/models.py:54 back/back/apps/client/models.py:17
+#: back/back/apps/post/models.py:41
+msgid "first name"
+msgstr ""
+
+#: back/back/apps/business/models.py:59 back/back/apps/client/models.py:23
+#: back/back/apps/post/models.py:46
+msgid "last name"
+msgstr ""
+
+#: back/back/apps/business/models.py:64 back/back/apps/post/models.py:51
+msgid "email"
+msgstr ""
+
+#: back/back/apps/business/models.py:68 back/back/apps/post/models.py:55
+msgid "phone"
+msgstr ""
+
+#: back/back/apps/business/models.py:72 back/back/apps/post/models.py:59
+msgid "local phone"
+msgstr ""
+
+#: back/back/apps/business/models.py:79
+msgid "representants"
+msgstr ""
+
+#: back/back/apps/client/apps.py:8
+msgid "client"
+msgstr ""
+
+#: back/back/apps/client/models.py:29 back/back/apps/user/models.py:191
+msgid "email address"
+msgstr ""
+
+#: back/back/apps/client/models.py:34
+msgid "document id"
+msgstr ""
+
+#: back/back/apps/client/models.py:51
+msgid "country"
+msgstr ""
+
+#: back/back/apps/client/models.py:58
+msgid "natural person"
+msgstr ""
+
+#: back/back/apps/client/models.py:59
+msgid "natural persons"
+msgstr ""
+
+#: back/back/apps/job/apps.py:8
+msgid "job"
+msgstr ""
+
+#: back/back/apps/job/models.py:9
+msgid "contact modality name"
+msgstr ""
+
+#: back/back/apps/job/models.py:18
+msgid "Contract Modality"
+msgstr ""
+
+#: back/back/apps/job/models.py:19
+msgid "Contract Modalities"
+msgstr ""
+
+#: back/back/apps/job/models.py:28
+msgid "Profession name"
+msgstr ""
+
+#: back/back/apps/job/models.py:37
+msgid "Profession"
+msgstr ""
+
+#: back/back/apps/job/models.py:38
+msgid "Professions"
+msgstr ""
+
+#: back/back/apps/job/models.py:48 back/back/apps/service/models.py:10
+msgid "title"
+msgstr ""
+
+#: back/back/apps/job/models.py:53
+msgid "schedule"
+msgstr ""
+
+#: back/back/apps/job/models.py:61
+msgid "contact modality"
+msgstr ""
+
+#: back/back/apps/job/models.py:76
+msgid "Job post"
+msgstr ""
+
+#: back/back/apps/job/models.py:77
+msgid "Job posts"
+msgstr ""
+
+#: back/back/apps/media/apps.py:8 back/back/apps/media/models.py:37
+msgid "media"
+msgstr ""
+
+#: back/back/apps/media/models.py:18
+msgid "file"
+msgstr ""
+
+#: back/back/apps/media/models.py:23 back/back/apps/post/models.py:126
+#: back/back/apps/vehicle/models.py:57
+msgid "date created"
+msgstr ""
+
+#: back/back/apps/media/models.py:29 back/back/apps/post/models.py:132
+#: back/back/apps/vehicle/models.py:64
+msgid "date updated"
+msgstr ""
+
+#: back/back/apps/media/models.py:38
+msgid "multimedias"
+msgstr ""
+
+#: back/back/apps/post/apps.py:8 back/back/apps/post/models.py:140
+msgid "post"
+msgstr ""
+
+#: back/back/apps/post/models.py:9
+msgid "json data for contact"
+msgstr ""
+
+#: back/back/apps/post/models.py:15
+msgid "contact seller"
+msgstr ""
+
+#: back/back/apps/post/models.py:16
+msgid "contact sellers"
+msgstr ""
+
+#: back/back/apps/post/models.py:24
+msgid "option"
+msgstr ""
+
+#: back/back/apps/post/models.py:32
+msgid "day option"
+msgstr ""
+
+#: back/back/apps/post/models.py:33
+msgid "day options"
+msgstr ""
+
+#: back/back/apps/post/models.py:67
+msgid "hour start"
+msgstr ""
+
+#: back/back/apps/post/models.py:71
+msgid "hour end"
+msgstr ""
+
+#: back/back/apps/post/models.py:77 back/back/apps/post/models.py:104
+msgid "contact"
+msgstr ""
+
+#: back/back/apps/post/models.py:78
+msgid "contacts"
+msgstr ""
+
+#: back/back/apps/post/models.py:90
+msgid "author"
+msgstr ""
+
+#: back/back/apps/post/models.py:108
+msgid "details"
+msgstr ""
+
+#: back/back/apps/post/models.py:114
+msgid "images"
+msgstr ""
+
+#: back/back/apps/post/models.py:121
+msgid "videos"
+msgstr ""
+
+#: back/back/apps/post/models.py:141
+msgid "posts"
+msgstr ""
+
+#: back/back/apps/service/apps.py:8
+msgid "service"
+msgstr ""
+
+#: back/back/apps/service/models.py:15
+msgid "url"
+msgstr ""
+
+#: back/back/apps/service/models.py:20
+msgid "Service post"
+msgstr ""
+
+#: back/back/apps/service/models.py:21
+msgid "Service posts"
+msgstr ""
+
+#: back/back/apps/social/apps.py:8 back/back/apps/user/models.py:23
+#: back/back/apps/user/models.py:158
+msgid "social"
+msgstr ""
+
+#: back/back/apps/social/models.py:9
+msgid "Social name"
+msgstr ""
+
+#: back/back/apps/social/models.py:18
+msgid "Social"
+msgstr ""
+
+#: back/back/apps/social/models.py:19
+msgid "Socials"
+msgstr ""
+
+#: back/back/apps/user/admin.py:22
+msgid "Personal info"
+msgstr ""
+
+#: back/back/apps/user/admin.py:26
+msgid "Permissions"
+msgstr ""
+
+#: back/back/apps/user/admin.py:37
+msgid "Important dates"
+msgstr ""
+
+#: back/back/apps/user/models.py:14
+msgid "value"
+msgstr ""
+
+#: back/back/apps/user/models.py:31 back/back/apps/user/models.py:73
+msgid "notification method"
+msgstr ""
+
+#: back/back/apps/user/models.py:38
+msgid "user social"
+msgstr ""
+
+#: back/back/apps/user/models.py:39
+msgid "user socials"
+msgstr ""
+
+#: back/back/apps/user/models.py:47 back/back/apps/user/models.py:82
+msgid "send notification"
+msgstr ""
+
+#: back/back/apps/user/models.py:53
+msgid "text message"
+msgstr ""
+
+#: back/back/apps/user/models.py:59 back/back/apps/user/models.py:167
+msgid "other method"
+msgstr ""
+
+#: back/back/apps/user/models.py:65
+msgid "facebook mail"
+msgstr ""
+
+#: back/back/apps/user/models.py:74 back/back/apps/user/models.py:93
+msgid "notification methods"
+msgstr ""
+
+#: back/back/apps/user/models.py:86
+msgid "frecuency"
+msgstr ""
+
+#: back/back/apps/user/models.py:107
+msgid "notification setting"
+msgstr ""
+
+#: back/back/apps/user/models.py:108
+msgid "notification settings"
+msgstr ""
+
+#: back/back/apps/user/models.py:117
+msgid "source bank"
+msgstr ""
+
+#: back/back/apps/user/models.py:122
+msgid "target bank"
+msgstr ""
+
+#: back/back/apps/user/models.py:143
+msgid "payment info"
+msgstr ""
+
+#: back/back/apps/user/models.py:144
+msgid "payment infos"
+msgstr ""
+
+#: back/back/apps/user/models.py:153
+msgid "web"
+msgstr ""
+
+#: back/back/apps/user/models.py:163
+msgid "friends"
+msgstr ""
+
+#: back/back/apps/user/models.py:182
+msgid "about website"
+msgstr ""
+
+#: back/back/apps/user/models.py:183
+msgid "abouts website"
+msgstr ""
+
+#: back/back/apps/user/models.py:194
+msgid "A user with that email already exists."
+msgstr ""
+
+#: back/back/apps/user/models.py:199
+msgid "Español"
+msgstr ""
+
+#: back/back/apps/user/models.py:200
+msgid "English"
+msgstr ""
+
+#: back/back/apps/user/models.py:203
+msgid "language"
+msgstr ""
+
+#: back/back/apps/user/models.py:251
+msgid "sent by email"
+msgstr ""
+
+#: back/back/apps/user/serializers.py:43
+msgid "Must include at least one notification method"
+msgstr ""
+
+#: back/back/apps/user/serializers.py:129
+msgid "This field is required"
+msgstr ""
+
+#: back/back/apps/user/serializers.py:170
+msgid "There is no active user with these credentials"
+msgstr ""
+
+#: back/back/apps/user/serializers.py:199
+#: back/back/apps/user/serializers.py:269
+msgid "The two password fields didn’t match."
+msgstr ""
+
+#: back/back/apps/user/serializers.py:234
+msgid "The token submitted is invalid."
+msgstr ""
+
+#: back/back/apps/user/serializers.py:257
+msgid "The old password didn’t match."
+msgstr ""
+
+#: back/back/apps/user/serializers.py:289
+msgid "The email has not changed."
+msgstr ""
+
+#: back/back/apps/user/views.py:97
+msgid ""
+"Your password have been successfully changed. Please sign in with your new "
+"credentials."
+msgstr ""
+
+#: back/back/apps/user/views.py:133
+msgid "Please contact customer service"
+msgstr ""
+
+#: back/back/apps/user/views.py:174
+msgid "Your password have been successfully changed."
+msgstr ""
+
+#: back/back/apps/user/views.py:194
+msgid "Your email have been successfully changed."
+msgstr ""
+
+#: back/back/apps/vehicle/apps.py:8 back/back/apps/vehicle/models.py:73
+#: back/back/apps/vehicle/models.py:125
+msgid "vehicle"
+msgstr ""
+
+#: back/back/apps/vehicle/models.py:30
+msgid "brand"
+msgstr ""
+
+#: back/back/apps/vehicle/models.py:35
+msgid "model"
+msgstr ""
+
+#: back/back/apps/vehicle/models.py:40
+msgid "year"
+msgstr ""
+
+#: back/back/apps/vehicle/models.py:45
+msgid "Car"
+msgstr ""
+
+#: back/back/apps/vehicle/models.py:46
+msgid "SUV"
+msgstr ""
+
+#: back/back/apps/vehicle/models.py:47
+msgid "Truck"
+msgstr ""
+
+#: back/back/apps/vehicle/models.py:50
+msgid "type"
+msgstr ""
+
+#: back/back/apps/vehicle/models.py:74
+msgid "vehicles"
+msgstr ""
+
+#: back/back/apps/vehicle/models.py:89
+msgid "currency"
+msgstr ""
+
+#: back/back/apps/vehicle/models.py:95
+msgid "price"
+msgstr ""
+
+#: back/back/apps/vehicle/models.py:103
+msgid "rental price"
+msgstr ""
+
+#: back/back/apps/vehicle/models.py:111
+msgid "Rental"
+msgstr ""
+
+#: back/back/apps/vehicle/models.py:112
+msgid "Sale"
+msgstr ""
+
+#: back/back/apps/vehicle/models.py:113
+msgid "Rental and sale"
+msgstr ""
+
+#: back/back/apps/vehicle/models.py:116
+msgid "sale type"
+msgstr ""
+
+#: back/back/apps/vehicle/models.py:129
+msgid "accesories"
+msgstr ""
+
+#: back/back/apps/vehicle/models.py:133
+msgid "services"
+msgstr ""
+
+#: back/back/apps/vehicle/models.py:137
+msgid "new"
+msgstr ""
+
+#: back/back/apps/vehicle/models.py:138
+msgid "used"
+msgstr ""
+
+#: back/back/apps/vehicle/models.py:141
+msgid "vehicle state"
+msgstr ""
+
+#: back/back/apps/vehicle/models.py:148
+msgid "Vehicle post"
+msgstr ""
+
+#: back/back/apps/vehicle/models.py:149
+msgid "Vehicle posts"
+msgstr ""

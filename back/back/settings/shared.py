@@ -298,3 +298,18 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 
 CORS_ALLOW_CREDENTIALS = True
+
+
+# Internationalization
+# https://docs.djangoproject.com/en/3.0/topics/i18n/
+LOCALE_PATHS = (str(BASE_DIR / "translations"),)
+
+LANGUAGE_CODE = "es"
+
+TIME_ZONE = "America/Caracas"
+
+USE_I18N = True
+
+USE_L10N = True
+
+USE_TZ = True
