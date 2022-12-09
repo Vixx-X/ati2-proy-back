@@ -61,7 +61,7 @@ class PasswordResetConfirmView(generics.GenericAPIView):
 
     # drf-spectacular will not call get_serializer if is not overrided
     def get_serializer(self, *args, **kwargs):
-        self.object = None  # Error in get_serializer
+        self.object = self.object or None  # Error in get_serializer
         return super().get_serializer(*args, **kwargs)
 
     def get_object(self):
@@ -110,7 +110,10 @@ class PasswordResetConfirmView(generics.GenericAPIView):
     )
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
-        data = {"invalid_link": self.object is None, "email": self.object and self.object.email}
+        data = {
+            "invalid_link": self.object is None,
+            "email": self.object and self.object.email,
+        }
         if self.object is None:
             return Response(data, status=status.HTTP_410_GONE)
         return Response(data)
