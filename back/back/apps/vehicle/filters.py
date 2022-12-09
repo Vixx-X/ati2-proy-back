@@ -22,7 +22,9 @@ class VehicleFilter(filters.FilterSet):
 
     class Meta:
         model = Vehicle
-        fields = []
+        fields = [
+            "type",
+        ]
 
 
 class VehiclePostFilter(filters.FilterSet):
