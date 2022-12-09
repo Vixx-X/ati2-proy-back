@@ -215,7 +215,7 @@ MEDIA_ROOT = str(BASE_DIR / "../media")
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Custom AUTH Backend
-AUTHENTICATION_BACKENDS = ['back.core.backends.UsernameOrEmailModelBackend']
+AUTHENTICATION_BACKENDS = ["back.core.backends.UsernameOrEmailModelBackend"]
 
 # RestFramework settings
 # https://www.django-rest-framework.org/api-guide/settings/
@@ -284,8 +284,8 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 # https://github.com/adamchainz/django-cors-headers
 # TODO: REMOVE LOCALHOST ONES WHEN IT IS IN REAL PRODUCTION
 CORS_ALLOWED_ORIGINS = [
-    "https://api.ati2.vittorioadesso.com",
-    "https://ait2.vittorioadesso.com",
+    "https://api.ati2.proy.vittorioadesso.com",
+    "https://ait2.proy.vittorioadesso.com",
     "http://localhost:8000",
     "http://127.0.0.1:8000",
     "http://localhost:3000",
@@ -293,8 +293,8 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://api.ati2.vittorioadesso.com",
-    "https://ait2.vittorioadesso.com",
+    "https://api.ati2.proy.vittorioadesso.com",
+    "https://ait2.proy.vittorioadesso.com",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
