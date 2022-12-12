@@ -143,12 +143,20 @@ class PasswordResetSerializer(serializers.Serializer):
             query |= Q(**{"%s__iexact" % field_name: email_or_document_id})
         query &= Q(is_active=True)
         active_users = User._default_manager.filter(query)
+
+        def recursive_getter(obj, fields, default=None):
+            fields_ = fields.split("__")
+            ret = obj
+            for field in fields_:
+                ret = getattr(ret, field, default)
+            return ret
+
         return (
             u
             for u in active_users
             if u.has_usable_password()
             and any(
-                _unicode_ci_compare(email_or_document_id, getattr(u, field_name))
+                _unicode_ci_compare(email_or_document_id, recursive_getter(u, field_name))
                 for field_name in identifier_fields
             )
         )
