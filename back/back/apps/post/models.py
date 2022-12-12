@@ -139,7 +139,7 @@ class Post(models.Model):
         db_table = "posts"
         verbose_name = _("post")
         verbose_name_plural = _("posts")
-        ordering = ("date_updated",)
+        ordering = ("-date_updated",)
 
     def __str__(self):
         out = [
